@@ -1,7 +1,7 @@
 // jQuery plugin patterns: http://coding.smashingmagazine.com/2011/10/11/essential-jquery-plugin-patterns/
 // http://bililite.nfshost.com/blog/understanding-jquery-ui-widgets-a-tutorial/
 // jQuery widgets: http://ajpiano.com/widgetfactory
-(function($){
+(function($, window){
 	$.widget('md.slideToggle', {
 		_create: function() {
 			// this -- The widget class itself
@@ -25,6 +25,20 @@
 			$sliderContainer.find('.sliderOffText')
 				.html(this.options.uncheckedText)
 				.on("mousedown.slidetoggle", this._clickToggle);
+				
+			// Set up pin dragging
+			window.slideToggleActive = false;
+			this.sliderPin.on("mousedown.slidetoggle", function(e) {
+				// Start a pin drag
+				e.preventDefault(); // Don't select text during the drag
+				var $container = $(this).parentsUntil('.sliderContainer').parent();
+				var w = $container.data('widget');
+				w.options.isDragging = true;
+				w.options.dragStartOffset = parseInt(w.sliderTrack.css('left'));
+				w.options.dragStartTime = new Date().getTime();
+				w.options.mouseX = e.clientX;
+				window.slideToggleActive = w; // Put in window element, since the end of the mouse event will be on the body, not the widget
+			});
 		},
 		_init: function() {
 			this.sliderPin.css('left', Math.floor(this.sliderTrack.width()/2-this.sliderPin.width()/2) + 'px'); // Move pin to center of track
@@ -104,4 +118,42 @@
 			$.Widget.prototype.destroy.call(this); // Do the parent Widget class destroy action
 		}
 	});
-})(jQuery);
+	
+	// Drag ending and in-progress events on the body, so the user can drag outside the toggle bounding box
+	// Since only one drag event would be going on at a time, this is outside the widget as a global handler
+	$('body')
+		.on("mousemove.slidetoggle", function(e) {
+			var w = window.slideToggleActive;
+			if (w) {
+				// We're in the middle of a drag; update the slider to where the mouse is
+				var deltaX = e.clientX - w.options.mouseX;
+				var newOffset = w.options.dragStartOffset + deltaX;
+				if (newOffset > parseInt(w._onPos())) {
+					newOffset = parseInt(w._onPos());
+				} else if (newOffset < parseInt(w._offPos())) {
+					newOffset = parseInt(w._offPos());
+				}
+				w.sliderTrack.css('left', newOffset + 'px');
+			}
+		})
+		.on("mouseup.slidetoggle", function(e) {
+			var w = window.slideToggleActive;
+			if (w) {
+				if (new Date().getTime() - w.options.dragStartTime <= 500) {
+					// Mouse up less than one second after it was down; that's a click -- toggle the state
+					w.toggle(true, false);
+				} else {
+					// We're in the middle of a drag; end the drag, choosing on or off based on where the pin is
+					var offset = (parseInt(w.sliderTrack.css('left')) - parseInt(w._offPos()))/(parseInt(w._onPos())-parseInt(w._offPos()));
+					console.log(offset);
+					if (offset >= 0.5) {
+						w.turnOn(true, false);
+					} else {
+						w.turnOff(true, false);
+					}
+				}
+				w.options.isDragging = false;
+				window.slideToggleActive = false; // Stop the drag
+			}
+		});	
+})(jQuery, window);
