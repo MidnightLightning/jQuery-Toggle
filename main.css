@@ -1,0 +1,98 @@
+/*
+html5doctor.com Reset Stylesheet v1.6.1
+Last Updated: 2010-09-17
+Author: Richard Clark - http://richclarkdesign.com
+*/
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+body {
+    line-height:1;
+}
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {
+    display:block;
+}
+nav ul {
+    list-style:none;
+}
+blockquote, q {
+    quotes:none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+/* change colours to suit your needs */
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+/* change colours to suit your needs */
+mark {
+    background-color:#ff9;
+    color:#000;
+    font-style:italic;
+    font-weight:bold;
+}
+del {
+    text-decoration: line-through;
+}
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+/* change border colour to suit your needs */
+hr {
+    display:block;
+    height:1px;
+    border:0;
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+input, select {
+    vertical-align:middle;
+}
+
+body { font-size: 10pt; background-color:#EEE; color:#111; font-family: 'Aldrich', sans-serif; }
+div#container { width:960px; margin:0 auto; }
+h1 { font-size: 500%; margin:0.5em 0; font-family:'Fugaz One', cursive; text-shadow: #999 1px 2px 2px; }
+h1 .small { font-size:50%; }
+h2 { margin:1em 0 0.5em 0; font-size:150%; text-shadow: #999 0px 1px 1px;}
+p { margin:0 0 1em 0; }
+pre { border: solid 1px #006198; background-color:#dde5e9; padding:10px; font-size:12pt; font-weight:bold; box-shadow: 1px 1px 2px #999; }
+a { color:#006198; text-decoration:none; }
+a:hover { text-decoration:underline; }
+
+div#footer { border-top:groove 4px #006198; margin-top:1em; padding-top:0.5em; text-align:center; font-style:italic; }
