@@ -9,7 +9,7 @@
 			// this.options -- options hash
 			var $input = this.element; // The input checkbox
 			
-			var $sliderContainer = $input.wrap('<div class="sliderContainer ui-widget ui-helper-reset ui-corner-all" />').parent(); // Wrap the element in a container div, and return a reference to the container
+			var $sliderContainer = $input.wrap('<div class="sliderContainer ui-widget ui-widget-content ui-helper-reset ui-corner-all" />').parent(); // Wrap the element in a container div, and return a reference to the container
 			$sliderContainer.css('width', this.options.width).append('<div class="sliderTrack"><div class="sliderOnText ui-state-active ui-state-highlight"></div><div class="sliderPin"></div><div class="sliderOffText ui-state-default"></div></div>');
 			$input.hide(); // Hide base checkbox
 			
@@ -145,7 +145,6 @@
 				} else {
 					// We're in the middle of a drag; end the drag, choosing on or off based on where the pin is
 					var offset = (parseInt(w.sliderTrack.css('left')) - parseInt(w._offPos()))/(parseInt(w._onPos())-parseInt(w._offPos()));
-					console.log(offset);
 					if (offset >= 0.5) {
 						w.turnOn(true, false);
 					} else {

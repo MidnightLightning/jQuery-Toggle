@@ -8,9 +8,20 @@
 	<meta http-equiv="content-style-type" content="text/css" />
 	<link rel="stylesheet" href="css/dot-luv/jquery-ui-1.8.18.custom.css" />
 	<link rel="stylesheet" href="css/slidetoggle.css" />
+	<style>
+		table.form th { text-align:right; padding:0 0.5em 0 0 }
+	</style>
 </head>
-	<input type="checkbox" id="slide" name="slideMe" value="on" />
 <body>
+
+<h1>jQuery Slide Toggle</h1>
+<table class="form">
+	<tr><th><span id="default_label">Default:</span></th><td><input type="checkbox" id="default" name="slideMe" value="on" /></td></tr>
+	<tr><th><span id="wide_label">Wide:</span></th><td><input type="checkbox" id="wide" name="slideMe" value="on" /></td></tr>
+	<tr><th><span id="labels_label">Custom Labels:</span></th><td><input type="checkbox" id="labels" name="slideMe" value="on" /></td></tr>
+</table>
+<p>Replaces a standard HTML checkbox with an animated slider. Clicking on the slider body or pin toggles the state. The pin can also be dragged across the slider, and upon release will snap to whichever side is closer.</p>
+<p>Uses jQuery UI CSS classes for coloration (<tt>ui-state-active</tt> <tt>ui-state-highlight</tt> for "on" state, <tt>ui-state-default</tt> for "off" state), so keeps consistent with other jQuery UI elements on the page.</p>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
 <script>!window.jQuery && document.write(unescape('%3Cscript src="js/jquery-1.7.1.js"%3E%3C/script%3E'))</script>
@@ -18,7 +29,14 @@
 <script type="text/javascript" src="js/slidetoggle.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	$('input#slide').slideToggle({width: '50px'});
+	$('input#default').slideToggle();
+	$('span#default_label').on('click', function(e) { $('input#default').slideToggle('toggle'); });
+	
+	$('input#wide').slideToggle({'width': '150px'});
+	$('span#wide_label').on('click', function(e) { $('input#wide').slideToggle('toggle'); });
+	
+	$('input#labels').slideToggle({'checkedText': "Most Definitely!", 'uncheckedText':"Not on your life!", 'width':'150px'});
+	$('span#labels_label').on('click', function(e) { $('input#labels').slideToggle('toggle'); });
 });
 </script>
 </body>
