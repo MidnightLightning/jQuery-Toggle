@@ -18,14 +18,13 @@
 			this.sliderTrack = $sliderContainer.find('.sliderTrack');
 			this.sliderPin = $sliderContainer.find('.sliderPin');
 			this.sliderContainer.data('widget', this); // Give the container a reference to the widget; for mouse events
-			console.log(this.sliderContainer.data(), this.sliderContainer.data('widget'));
 
 			$sliderContainer.find('.sliderOnText')
 				.html(this.options.checkedText)
-				.on("mousedown.slidetoggle", {w: this}, this._clickToggle);
+				.on("mousedown.slidetoggle", this._clickToggle);
 			$sliderContainer.find('.sliderOffText')
 				.html(this.options.uncheckedText)
-				.on("mousedown.slidetoggle", {w: this}, this._clickToggle);
+				.on("mousedown.slidetoggle", this._clickToggle);
 		},
 		_init: function() {
 			this.sliderPin.css('left', Math.floor(this.sliderTrack.width()/2-this.sliderPin.width()/2) + 'px'); // Move pin to center of track
@@ -40,7 +39,7 @@
 			uncheckedText: 'Off',
 			size: '50px',
 			isChecked: false,
-			pinPadding: 2
+			pinPadding: 1
 		},
 		_offPos: function() {
 			return Math.floor(this.sliderTrack.width()/2 * -1 + this.sliderPin.width()/2 + this.options.pinPadding) + 'px';
@@ -63,7 +62,6 @@
 		},
 		turnOff: function(animate) {
 			var animate = animate || true; // If undefined, default to true
-			console.log("turning off", animate);
 			if (animate) {
 				this.sliderTrack
 					.stop().css('left', this._onPos()) // Reset to "on" position
@@ -76,7 +74,6 @@
 		},
 		turnOn: function(animate) {
 			var animate = animate || true; // If undefined, default to true
-			console.log("turning on", animate);
 			if (animate) {
 				this.sliderTrack
 					.stop().css('left', this._offPos()) // Reset to "off" position
