@@ -61,7 +61,7 @@
 			}
 		},
 		turnOff: function(animate) {
-			var animate = animate || true; // If undefined, default to true
+			if (typeof animate == 'undefined') animate = true; // If undefined, default to true
 			if (animate) {
 				this.sliderTrack
 					.stop().css('left', this._onPos()) // Reset to "on" position
@@ -73,7 +73,7 @@
 			this.options.isChecked = false;
 		},
 		turnOn: function(animate) {
-			var animate = animate || true; // If undefined, default to true
+			if (typeof animate == 'undefined') animate = true; // If undefined, default to true
 			if (animate) {
 				this.sliderTrack
 					.stop().css('left', this._offPos()) // Reset to "off" position
