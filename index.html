@@ -4,7 +4,9 @@
 	<meta charset='utf-8'>
 	<title>jQuery Slide-Toggle plugin</title>
 	<link href='http://fonts.googleapis.com/css?family=Fugaz+One|Aldrich' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="main.css" />
+	<link rel="stylesheet" href="css/gh/jquery-ui-1.8.18.custom.css" />
+	<link rel="stylesheet" href="css/slidetoggle.css" />
+	<link rel="stylesheet" href="css/main.css" />
 </head>
 
 <body>
@@ -19,16 +21,109 @@
 <p><a href="http://jquery.com/">jQuery</a> <a href="http://jqueryui.com/">UI</a> <a href="http://ajpiano.com/widgetfactory">widget</a> to create a iOS-like slide toggles for HTML checkbox inputs.</p>
 </div>
 
+<div id="prime_demo">
+<p style="font-weight:bold;">Are you using this plugin yet?<br /><input type="checkbox" id="prime_demo" /></p>
+<div class="output">
+</div>
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style addthis_32x32_style" style="margin:0 auto; width:245px;">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f621f1b17bbce83"></script>
+<!-- AddThis Button END -->
+</div>
+
 <h2>Download</h2>
 <p>You can download this project in either <a href="https://github.com/MidnightLightning/jQuery-Toggle/zipball/master">zip</a> or <a href="https://github.com/MidnightLightning/jQuery-Toggle/tarball/master">tar formats.</p>
 <p>You can also clone the project with <a href="http://git-scm.com">Git</a> by running:</p>
 <pre>$ git clone git://github.com/MidnightLightning/jQuery-Toggle</pre>
+
+<h2>Options</h2>
+<p>When creating the slidetoggle widget, these options can be set as a javascript object passed to the constructor to set their initial value:</p>
+<pre>$('input#my_checkbox').slidetoggle({
+  checkedText: 'Yep',
+  uncheckedText: 'Nope'
+});</pre>
+<p>After initialization, these options can be retrieved using 'option' as the first parameter passed to the widget function:</p>
+<pre>$('input#my_checkbox').slidetoggle('option', 'isChecked');</pre>
+
+<h3>width</h3>
+<p class="code_model">string</p>
+<p>Stretch the slider horizontally. If you adjust the default text labels, you may also need to adjust this to make sure all the text is visible in both states. Note this is a string; it's used in CSS directly, so should be a number followed by a unit (i.e. "150px", and not "150", or 150 (javascript integer)).</p>
+
+<h3>checkedText</h3>
+<p class="code_model">string</p>
+<p>Text to show on the "on" (left) side of the slide toggle. Defaults to the word "On".</p>
+
+<h3>uncheckedText</h3>
+<p class="code_model">string</p>
+<p>Text to show on the "off" (right) side of the slide toggle. Defaults to the word "Off".</p>
+
+<h3>isChecked</h3>
+<p class="code_model">boolean</p>
+<p>Stores the current state of the toggle; true if the toggle is "on", false if it's "off".</p>
+
+<h2>Events</h2>
+<p>Widget events can be subscribed to in the same manner as other object events (use 'slidetoggle' as a prefix on the event name):</p>
+<pre>$('input#my_checkbox').on('slidetogglechange', function(e) { /* Do something */ });</pre>
+<p>Or when initializing the widget, the callback function can be passed as an option:</p>
+<pre>$('input#my_checkbox').slidetoggle({hover: function(e) { /* Do something */ });</pre>
+
+<h3>change</h3>
+<p>Triggers when the state is changed.</p>
+
+<h2>Methods</h2>
+<p>Can be called by passing a string to the widget function with the same name as the method. Additional parameters can be passed after the name of the method:</p>
+<pre>$('input#my_checkbox').slidetoggle('turnOff', false); // Turn the toggle off, without animating the change.</pre>
+
+<h3>toggle</h3>
+<p class="code_model">('toggle', [boolean animate])</p>
+<p>Changes the state of the toggle to whatever it isn't. If "animate" is set to false (defaults to true), the change won't be animated.</p>
+
+<h3>turnOff</h3>
+<p class="code_model">('turnOff', [boolean animate])</p>
+<p>Changes the state of the toggle to "off". If "animate" is set to false (defaults to true), the change won't be animated.</p>
+
+<h3>turnOn</h3>
+<p class="code_model">('turnOn', [boolean animate])</p>
+<p>Changes the state of the toggle to "on". If "animate" is set to false (defaults to true), the change won't be animated.</p>
+
 
 <div id="footer">
 get the source code on GitHub : <a href="https://github.com/MidnightLightning/jQuery-Toggle">MidnightLightning/jQuery-Toggle</a>
 </div>
 
 </div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+<script>!window.jQuery && document.write(unescape('%3Cscript src="js/jquery-1.7.1.js"%3E%3C/script%3E'))</script>
+<script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
+<script type="text/javascript" src="js/slidetoggle.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('input#prime_demo').slideToggle({
+		checkedText:'Yes!',
+		uncheckedText:'Not yet...',
+		width:'150px',
+		change: function(e) {
+			var state = $(this).slideToggle('option', 'isChecked');
+			var $out = $('#prime_demo .output');
+			if (state) {
+				$out.html('Great! Why not share it with your friends:');
+				$('#prime_demo .addthis_toolbox').show();
+			} else {
+				$out.html('Why not head over to <a href="https://github.com/MidnightLightning/jQuery-Toggle">Github</a> and grab it?');
+				$('#prime_demo .addthis_toolbox').hide();
+			}
+		}
+	});
+});
+</script>
 
 </body>
 </html>
