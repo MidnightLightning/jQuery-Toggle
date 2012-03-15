@@ -9,17 +9,23 @@
 	<link rel="stylesheet" href="css/dot-luv/jquery-ui-1.8.18.custom.css" />
 	<link rel="stylesheet" href="css/slidetoggle.css" />
 	<style>
+		body { font-size: 10px; }
+		.ui-button-icon-primary { display:inline-block; margin-right:5px; vertical-align:-3px; }
+		p { font-size:1.3em; }
 		table.form th { text-align:right; padding:0 0.5em 0 0 }
 	</style>
 </head>
 <body>
 
 <h1>jQuery Slide Toggle</h1>
+<form method="get" target="demo.html">
 <table class="form">
-	<tr><th><span id="default_label">Default:</span></th><td><input type="checkbox" id="default" name="slideMe" value="on" /></td></tr>
-	<tr><th><span id="wide_label">Wide:</span></th><td><input type="checkbox" id="wide" name="slideMe" value="on" /></td></tr>
-	<tr><th><span id="labels_label">Custom Labels:</span></th><td><input type="checkbox" id="labels" name="slideMe" value="on" /></td></tr>
+	<tr><th><span id="default_label">Default:</span></th><td><input type="checkbox" id="default" name="default" value="on" /></td></tr>
+	<tr><th><span id="wide_label">Wide:</span></th><td><input type="checkbox" id="wide" name="wide" value="on" /></td></tr>
+	<tr><th><span id="labels_label">Custom Labels:</span></th><td><input type="checkbox" id="labels" name="labels" value="on" /></td></tr>
 </table>
+<button type="submit" id="submit">Send</button>
+</form>
 <p>Replaces a standard HTML checkbox with an animated slider. Clicking on the slider body or pin toggles the state. The pin can also be dragged across the slider, and upon release will snap to whichever side is closer.</p>
 <p>Uses jQuery UI CSS classes for coloration (<tt>ui-state-active</tt> <tt>ui-state-highlight</tt> for "on" state, <tt>ui-state-default</tt> for "off" state), so keeps consistent with other jQuery UI elements on the page.</p>
 
@@ -37,6 +43,8 @@ $(document).ready(function() {
 	
 	$('input#labels').slideToggle({'checkedText': "Most Definitely!", 'uncheckedText':"Not on your life!", 'width':'150px'});
 	$('span#labels_label').on('click', function(e) { $('input#labels').slideToggle('toggle'); });
+	
+	$('button#submit').button({icons: {primary: 'ui-icon-check'}});
 });
 </script>
 </body>
