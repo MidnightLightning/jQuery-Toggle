@@ -85,6 +85,7 @@
 			}
 			this.element.prop('checked', false);
 			this.options.isChecked = false;
+			this._trigger('change');
 		},
 		turnOn: function(animate, resetPosition) {
 			if (typeof animate == 'undefined') animate = true; // If undefined, default to true
@@ -97,6 +98,7 @@
 			}
 			this.element.prop('checked', true);
 			this.options.isChecked = true;
+			this._trigger('change');
 		},
 		_setOption: function(key, value) { // Special function; called when the user sets a new parameter for the widget
 			// If the user is setting the checked state; update the widget

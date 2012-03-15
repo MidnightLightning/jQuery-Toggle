@@ -35,7 +35,11 @@
 <script type="text/javascript" src="js/slidetoggle.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	$('input#default').slideToggle();
+	$('input#default').slideToggle({change: function(e) {
+		// this == the DOM input element
+		var state = $(this).slideToggle('option', 'isChecked');
+		console.log(e, state);
+	}});
 	$('span#default_label').on('click', function(e) { $('input#default').slideToggle('toggle'); });
 	
 	$('input#wide').slideToggle({'width': '150px'});
