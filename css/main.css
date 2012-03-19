@@ -95,10 +95,12 @@ h2 { margin:2em 0 0.5em 0; font-size:150%; text-shadow: #999 0px 1px 1px;}
 p { margin:0 0 1em 0; }
 p.code_model { font-style:italic; color:#666; }
 pre { border: solid 1px #006198; background-color:#dde5e9; padding:10px; font-weight:bold; box-shadow: 1px 1px 2px #999; margin-bottom:1em; }
+pre .hilight { background-color:#FF6; }
+pre .comment { color:#999; }
 a { color:#006198; text-decoration:none; }
 a:hover { text-decoration:underline; }
 
 div#footer { border-top:groove 4px #006198; margin-top:1em; padding-top:0.5em; text-align:center; font-style:italic; }
 .sliderOnText, .sliderOffText { vertical-align:-3px; } /* Compensate for font baseline */
 
-div#prime_demo { text-align:center; border:solid 1px #666; background-color:#DDD; box-shadow:1px 1px 2px #999; padding:10px; }
+div#prime_demo { text-align:center; border:solid 1px #666; background-color:#DDD; box-shadow:1px 1px 2px #999; padding:10px; height:85px; }

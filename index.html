@@ -43,56 +43,110 @@
 <p>You can also clone the project with <a href="http://git-scm.com">Git</a> by running:</p>
 <pre>$ git clone git://github.com/MidnightLightning/jQuery-Toggle</pre>
 
+<h2>Usage</h2>
+<p>After setting up jQuery and jQuery UI properly in your page, add "<a href="https://github.com/MidnightLightning/jQuery-Toggle/blob/master/css/slidetoggle.css">slidetoggle.css</a>" to your head and "<a href="https://github.com/MidnightLightning/jQuery-Toggle/blob/master/js/slidetoggle.js">slidetoggle.js</a>" to the foot of your body (after jQuery libraries), and then apply the widget to an element with the ".slideToggle()" function:</p>
+<pre>
+&lt;html&gt;
+&lt;head&gt;
+  &lt;link rel="stylesheet" href="css/custom/jquery-ui-1.8.18.custom.css" /&gt;
+  <span class="hilight" title="Add SlideToggle widget styles">&lt;link rel="stylesheet" href="css/slidetoggle.css" /&gt;</span>
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;input type="checkbox" id="myCheckbox" /&gt;
+  &lt;script src="js/jquery-1.7.1.min.js"&gt;&lt;/script&gt;
+  &lt;script src="js/jquery-ui-1.8.18.min.js"&gt;&lt;/script&gt;
+  <span class="hilight" title="SlideToggle widget code">&lt;script src="js/slidetoggle.js"&gt;&lt;/script&gt;</span>
+  &lt;script&gt;
+    $(document).ready(function() {
+      $('input#myCheckbox').<span class="hilight" title="Add the widget to an HTML checkbox">slideToggle()</span>;
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p>The widget uses the <tt>ui-state-active</tt> and <tt>ui-state-hilight</tt> jQuery UI CSS classes for the "on" state, and <tt>ui-state-default</tt> for the "off" state. If using the <a href="http://jqueryui.com/themeroller/">jQuery UI ThemeRoller</a>, watch the "Datepicker" example widget; the appearance of the "today" day box is how the slideToggle "on" state will look, and the other, unselected days are how the "off" state will look.</p>
+
 <h2>Options</h2>
 <p>When creating the slidetoggle widget, these options can be set as a javascript object passed to the constructor to set their initial value:</p>
 <pre>$('input#my_checkbox').slidetoggle({
   checkedText: 'Yep',
   uncheckedText: 'Nope'
 });</pre>
-<p>After initialization, these options can be retrieved using 'option' as the first parameter passed to the widget function:</p>
-<pre>$('input#my_checkbox').slidetoggle('option', 'isChecked');</pre>
+<p>After initialization, these options can be retrieved using 'option' as the first parameter passed to the widget function, and if a third parameter is set, the option value is updated:</p>
+<pre>var state = $('input#my_checkbox').slidetoggle('option', 'isChecked'); <span class="comment">// Retrieve the option value</span>
+$('input#my_checkbox').slidetoggle('animate', false); <span class="comment">// Set the option value</span></pre>
+<hr />
 
-<h3>width</h3>
-<p class="code_model">string</p>
-<p>Stretch the slider horizontally. If you adjust the default text labels, you may also need to adjust this to make sure all the text is visible in both states. Note this is a string; it's used in CSS directly, so should be a number followed by a unit (i.e. "150px", and not "150", or 150 (javascript integer)).</p>
+<h3>animate</h3>
+<p class="code_model">boolean</p>
+<p>Global animation flag for this toggle. Sets the default option to animate or not for the "toggle", "turnOff" and "turnOn" methods.</p>
 
 <h3>checkedText</h3>
 <p class="code_model">string</p>
 <p>Text to show on the "on" (left) side of the slide toggle. Defaults to the word "On".</p>
 
+<h3>csstransition</h3>
+<p class="code_model">boolean</p>
+<p>Toggle to use <a href="http://www.w3.org/TR/css3-transitions/">CSS3 Transitions</a> rather than jQuery animations for the slide effect. Defaults to false.</p>
+
+<h3>isChecked</h3>
+<p class="code_model">boolean</p>
+<p>Stores the current state of the toggle; true if the toggle is "on", false if it's "off". Intended to be read-only, though you can set this option either at initialization or afterward, which is effectively the same as using the "turnOn" or "turnOff" method.</p>
+
 <h3>uncheckedText</h3>
 <p class="code_model">string</p>
 <p>Text to show on the "off" (right) side of the slide toggle. Defaults to the word "Off".</p>
 
-<h3>isChecked</h3>
-<p class="code_model">boolean</p>
-<p>Stores the current state of the toggle; true if the toggle is "on", false if it's "off".</p>
+<h3>width</h3>
+<p class="code_model">string</p>
+<p>Stretch the slider horizontally. If you adjust the default text labels, you may also need to adjust this to make sure all the text is visible in both states. Note this is a string; it's used in CSS directly, so should be a number followed by a unit (i.e. "150px", and not "150", or 150 (javascript integer)).</p>
 
 <h2>Events</h2>
 <p>Widget events can be subscribed to in the same manner as other object events (use 'slidetoggle' as a prefix on the event name):</p>
-<pre>$('input#my_checkbox').on('slidetogglechange', function(e) { /* Do something */ });</pre>
+<pre>$('input#my_checkbox').on('slidetogglechange', function(e) { <span class="comment">/* Do something */</span> });</pre>
 <p>Or when initializing the widget, the callback function can be passed as an option:</p>
-<pre>$('input#my_checkbox').slidetoggle({hover: function(e) { /* Do something */ });</pre>
+<pre>$('input#my_checkbox').slidetoggle({hover: function(e) { <span class="comment">/* Do something */</span> });</pre>
+<hr />
 
 <h3>change</h3>
 <p>Triggers when the state is changed.</p>
 
 <h2>Methods</h2>
 <p>Can be called by passing a string to the widget function with the same name as the method. Additional parameters can be passed after the name of the method:</p>
-<pre>$('input#my_checkbox').slidetoggle('turnOff', false); // Turn the toggle off, without animating the change.</pre>
+<pre>$('input#my_checkbox').slidetoggle('turnOff', false); <span class="comment">// Turn the toggle off, without animating the change.</span></pre>
+<hr />
 
 <h3>toggle</h3>
-<p class="code_model">('toggle', [boolean animate])</p>
-<p>Changes the state of the toggle to whatever it isn't. If "animate" is set to false (defaults to true), the change won't be animated.</p>
+<p class="code_model">.slideToggle('toggle', [boolean animate])</p>
+<p>Changes the state of the toggle to whatever it isn't. If "animate" is set to false (defaults to 'animate' option, which is true by default), the change won't be animated.</p>
 
 <h3>turnOff</h3>
-<p class="code_model">('turnOff', [boolean animate])</p>
-<p>Changes the state of the toggle to "off". If "animate" is set to false (defaults to true), the change won't be animated.</p>
+<p class="code_model">.slideToggle('turnOff', [boolean animate])</p>
+<p>Changes the state of the toggle to "off". If "animate" is set to false (defaults to 'animate' option, which is true by default), the change won't be animated.</p>
 
 <h3>turnOn</h3>
-<p class="code_model">('turnOn', [boolean animate])</p>
-<p>Changes the state of the toggle to "on". If "animate" is set to false (defaults to true), the change won't be animated.</p>
+<p class="code_model">.slideToggle('turnOn', [boolean animate])</p>
+<p>Changes the state of the toggle to "on". If "animate" is set to false (defaults to 'animate' option, which is true by default), the change won't be animated.</p>
 
+<h2>CSS Classes</h2>
+<p>If you're doing something more advanced with your slide toggles, it might be useful to know how the pieces of the widget are laid out. Here's the CSS classes used, and their functions.</p>
+<hr />
+
+<h3>sliderContainer</h3>
+<p>Outer bounds of the slide toggle. This element is the one that has the <tt>overflow:hidden</tt> CSS property to hide the area of the slide toggle that's not active at the moment.</p>
+
+<h3>sliderTrack</h3>
+<p>This is the element that moves left and right to create the slide effect.</p>
+
+<h3>sliderOnText</h3>
+<p>Text label for the "on" state (and any background pattern on that side of the slide toggle).</p>
+
+<h3>sliderOffText</h3>
+<p>Text label for the "off" state (and any background pattern on that side of the slide toggle).</p>
+
+<h3>sliderPin</h3>
+<p>The pin image in the middle of the slider. This element has the click-and-drag mouse events on it to animate the slide toggle incrementally.</p>
 
 <div id="footer">
 get the source code on GitHub : <a href="https://github.com/MidnightLightning/jQuery-Toggle">MidnightLightning/jQuery-Toggle</a>
