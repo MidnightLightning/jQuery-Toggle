@@ -21,7 +21,7 @@
 <form method="get" target="demo.html">
 <table class="form">
 	<tr><th><span id="default_label">Default:</span></th><td><input type="checkbox" id="default" name="default" value="on" /></td></tr>
-	<tr><th><span id="wide_label">Wide:</span></th><td><input type="checkbox" id="wide" name="wide" value="on" /></td></tr>
+	<tr><th><span id="wide_label">Wide, no animation:</span></th><td><input type="checkbox" id="wide" name="wide" value="on" /></td></tr>
 	<tr><th><span id="labels_label">Custom Labels:</span></th><td><input type="checkbox" id="labels" name="labels" value="on" /></td></tr>
 </table>
 <button type="submit" id="submit">Send</button>
@@ -42,7 +42,7 @@ $(document).ready(function() {
 	}});
 	$('span#default_label').on('click', function(e) { $('input#default').slideToggle('toggle'); });
 	
-	$('input#wide').slideToggle({'width': '150px', 'animate':false});
+	$('input#wide').slideToggle({ 'width':'150px', 'animate':false });
 	$('span#wide_label').on('click', function(e) { $('input#wide').slideToggle('toggle'); });
 	
 	$('input#labels').slideToggle({'checkedText': "Most Definitely!", 'uncheckedText':"Not on your life!", 'width':'150px'});
