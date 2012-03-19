@@ -52,6 +52,7 @@
 			checkedText: 'On',
 			uncheckedText: 'Off',
 			size: '50px',
+			animate: true,
 			isChecked: false,
 			pinPadding: 1
 		},
@@ -75,7 +76,7 @@
 			}
 		},
 		turnOff: function(animate) {
-			if (typeof animate == 'undefined') animate = true; // If undefined, default to true
+			if (typeof animate == 'undefined') animate = this.options.animate; // If undefined, default to global
 			if (animate) {
 				this.sliderTrack.animate({left: this._offPos()}, 'fast'); // Slide to "off" position
 			} else {
@@ -86,7 +87,7 @@
 			this._trigger('change');
 		},
 		turnOn: function(animate) {
-			if (typeof animate == 'undefined') animate = true; // If undefined, default to true
+			if (typeof animate == 'undefined') animate = this.options.animate; // If undefined, default to global
 			if (animate) {
 				this.sliderTrack.animate({left: this._onPos()}, 'fast'); // Slide to "on" position
 			} else {
@@ -139,14 +140,14 @@
 			if (w) {
 				if (new Date().getTime() - w.options.dragStartTime <= 500) {
 					// Mouse up less than one second after it was down; that's a click -- toggle the state
-					w.toggle(true, false);
+					w.toggle();
 				} else {
 					// We're in the middle of a drag; end the drag, choosing on or off based on where the pin is
 					var offset = (parseInt(w.sliderTrack.css('left')) - parseInt(w._offPos()))/(parseInt(w._onPos())-parseInt(w._offPos()));
 					if (offset >= 0.5) {
-						w.turnOn(true, false);
+						w.turnOn();
 					} else {
-						w.turnOff(true, false);
+						w.turnOff();
 					}
 				}
 				w.options.isDragging = false;
