@@ -67,18 +67,16 @@
 			var w = $container.data('widget');
 			w.toggle();
 		},
-		toggle: function(animate, resetPosition) {
+		toggle: function(animate) {
 			if (this.options.isChecked) {
-				this.turnOff(animate, resetPosition); // Currently on; turn off
+				this.turnOff(animate); // Currently on; turn off
 			} else {
-				this.turnOn(animate, resetPosition); // Currently off; turn on
+				this.turnOn(animate); // Currently off; turn on
 			}
 		},
-		turnOff: function(animate, resetPosition) {
+		turnOff: function(animate) {
 			if (typeof animate == 'undefined') animate = true; // If undefined, default to true
-			if (typeof resetPosition == 'undefined') resetPosition = true;
 			if (animate) {
-				if (resetPosition) { this.sliderTrack.stop().css('left', this._onPos()); } // Reset to "on" position
 				this.sliderTrack.animate({left: this._offPos()}, 'fast'); // Slide to "off" position
 			} else {
 				this.sliderTrack.css('left', this._offPos()); // Move to "off" position
@@ -87,11 +85,9 @@
 			this.options.isChecked = false;
 			this._trigger('change');
 		},
-		turnOn: function(animate, resetPosition) {
+		turnOn: function(animate) {
 			if (typeof animate == 'undefined') animate = true; // If undefined, default to true
-			if (typeof resetPosition == 'undefined') resetPosition = true;
 			if (animate) {
-				if (resetPosition) { this.sliderTrack.stop().css('left', this._offPos()); } // Reset to "off" position
 				this.sliderTrack.animate({left: this._onPos()}, 'fast'); // Slide to "on" position
 			} else {
 				this.sliderTrack.css('left', this._onPos()); // Move to "on" position
