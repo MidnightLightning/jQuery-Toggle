@@ -6,3 +6,5 @@
 .sliderContainer .sliderOnText, .sliderContainer .sliderOffText { display:inline-block; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box; text-align:center; line-height:1em; font-weight:bold; font-size:10pt; width:50%; padding:3px 0; border:0px; }
 .sliderContainer .sliderOnText { text-align:right; padding-right:13px; }
 .sliderContainer .sliderOffText { text-align:left; padding-left:13px; }
+
+.sliderContainer.csstransition .sliderTrack { -webkit-transition:left 0.25s ease-out; -moz-transition:left 0.25s ease-out; -o-transition:left 0.25s ease-out; transition:left 0.25s ease-out; }

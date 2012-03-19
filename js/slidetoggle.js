@@ -25,6 +25,7 @@
 			$sliderContainer.find('.sliderOffText')
 				.html(this.options.uncheckedText)
 				.on("mousedown.slidetoggle", this._clickToggle);
+			if (this.options.csstransition == true) {	this.sliderContainer.addClass('csstransition');	}
 				
 			// Set up pin dragging
 			window.slideToggleActive = false;
@@ -32,6 +33,7 @@
 				// Start a pin drag
 				e.preventDefault(); // Don't select text during the drag
 				var $container = $(this).parentsUntil('.sliderContainer').parent();
+				$container.removeClass('csstransition'); // Remove the CSS Transition class for right now if it exists
 				var w = $container.data('widget');
 				w.options.isDragging = true;
 				w.options.dragStartOffset = parseInt(w.sliderTrack.css('left'));
@@ -53,6 +55,7 @@
 			uncheckedText: 'Off',
 			size: '50px',
 			animate: true,
+			csstransition: false,
 			isChecked: false,
 			pinPadding: 1
 		},
@@ -77,10 +80,23 @@
 		},
 		turnOff: function(animate) {
 			if (typeof animate == 'undefined') animate = this.options.animate; // If undefined, default to global
-			if (animate) {
-				this.sliderTrack.animate({left: this._offPos()}, 'fast'); // Slide to "off" position
-			} else {
+			if (!animate) {
+				// All animation off
+				this.sliderContainer.removeClass('csstransition');
 				this.sliderTrack.css('left', this._offPos()); // Move to "off" position
+				if (this.options.csstransition) {
+					//this.sliderContainer.addClass('csstransition'); // Can't just do this; some browsers (Chrome, Safari) still animate the change if called this soon after the change
+					var container = this.sliderContainer;
+					setTimeout(function() { container.addClass('csstransition'); }, 10);
+				}
+			} else {
+				if (this.options.csstransition) {
+					// Animation is on, and this slider uses CSS transitions
+					this.sliderTrack.css('left', this._offPos()); // Move to "off" position
+				} else {
+					// Animation is on, and this slider uses jQuery animation
+					this.sliderTrack.animate({left: this._offPos()}, 'fast'); // Slide to "off" position
+				}
 			}
 			this.element.prop('checked', false);
 			this.options.isChecked = false;
@@ -88,10 +104,23 @@
 		},
 		turnOn: function(animate) {
 			if (typeof animate == 'undefined') animate = this.options.animate; // If undefined, default to global
-			if (animate) {
-				this.sliderTrack.animate({left: this._onPos()}, 'fast'); // Slide to "on" position
-			} else {
+			if (!animate) {
+				// All animation off
+				this.sliderContainer.removeClass('csstransition');
 				this.sliderTrack.css('left', this._onPos()); // Move to "on" position
+				if (this.options.csstransition) {
+					//this.sliderContainer.addClass('csstransition'); // Can't just do this; some browsers (Chrome, Safari) still animate the change if called this soon after the change
+					var container = this.sliderContainer;
+					setTimeout(function() { container.addClass('csstransition'); }, 10);
+				}
+			} else {
+				if (this.options.csstransition) {
+					// Animation is on, and this slider uses CSS transitions
+					this.sliderTrack.css('left', this._onPos()); // Move to "on" position
+				} else {
+					// Animation is on, and this slider uses jQuery animation
+					this.sliderTrack.animate({left: this._onPos()}, 'fast'); // Slide to "on" position
+				}
 			}
 			this.element.prop('checked', true);
 			this.options.isChecked = true;
@@ -100,11 +129,19 @@
 		_setOption: function(key, value) { // Special function; called when the user sets a new parameter for the widget
 			// If the user is setting the checked state; update the widget
 			if (key == "isChecked") {
-				// User did $('#myInput').slideToggle('option', 'isChecked', [true|false]);
+				// User set state via $('#myInput').slideToggle('option', 'isChecked', [true|false]);
 				if (value) {
 					this.turnOn(false); // Turn on, without animating
 				} else {
 					this.turnOff(false); // Turn off, without animating
+				}
+			} else if (key == 'csstransition') {
+				// User set CSS Transition toggle via $('#myInput').slideToggle('option', 'csstransition', [true|false]);
+				this.sliderContainer.removeClass('csstransition');
+				if (value) {
+					//this.sliderContainer.addClass('csstransition'); // Can't just do this; some browsers (Chrome, Safari) still animate the change if called this soon after the change
+					var container = this.sliderContainer;
+					setTimeout(function() { container.addClass('csstransition'); }, 10);
 				}
 			}
 			$.Widget.prototype._setOption.apply(this, arguments); // do the Widget setOption class call
@@ -138,6 +175,7 @@
 		.on("mouseup.slidetoggle", function(e) {
 			var w = window.slideToggleActive;
 			if (w) {
+				if (w.options.csstransition) { w.sliderContainer.addClass('csstransition'); } // Add CSS Transition class back in, if that option is set
 				if (new Date().getTime() - w.options.dragStartTime <= 500) {
 					// Mouse up less than one second after it was down; that's a click -- toggle the state
 					w.toggle();
