@@ -3,6 +3,6 @@
 .sliderContainer .sliderPin {
 	position:absolute; top:1px; left:0px; width:18px; height:18px;
 }
-.sliderContainer .sliderOnText, .sliderContainer .sliderOffText { display:inline-block; box-sizing:border-box; text-align:center; line-height:1em; font-weight:bold; font-size:10pt; width:50%; padding:3px 0; border:0px; }
+.sliderContainer .sliderOnText, .sliderContainer .sliderOffText { display:inline-block; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; box-sizing:border-box; text-align:center; line-height:1em; font-weight:bold; font-size:10pt; width:50%; padding:3px 0; border:0px; }
 .sliderContainer .sliderOnText { text-align:right; padding-right:13px; }
 .sliderContainer .sliderOffText { text-align:left; padding-left:13px; }
