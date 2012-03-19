@@ -43,7 +43,7 @@
 			});
 		},
 		_init: function() {
-			this.sliderPin.css('left', Math.floor(this.sliderTrack.width()/2-this.sliderPin.width()/2) + 'px'); // Move pin to center of track
+			this.sliderPin.css('left', Math.floor(this.sliderTrack.width()/2-this.sliderPin.width()/2)); // Move pin to center of track
 			if (this.element.prop('checked')) {
 				this.turnOn(false); // Set to "on" position
 			} else {
@@ -60,10 +60,10 @@
 			pinPadding: 1
 		},
 		_offPos: function() {
-			return Math.floor(this.sliderTrack.width()/2 * -1 + this.sliderPin.width()/2 + this.options.pinPadding) + 'px';
+			return Math.floor(this.sliderTrack.width()/2 * -1 + this.sliderPin.width()/2 + this.options.pinPadding);
 		},
 		_onPos: function() {
-			return Math.floor(this.sliderTrack.width()/2 * -1 + this.sliderContainer.width() - this.sliderPin.width()/2 - this.options.pinPadding) + 'px';
+			return Math.floor(this.sliderTrack.width()/2 * -1 + this.sliderContainer.width() - this.sliderPin.width()/2 - this.options.pinPadding);
 		},
 		_clickToggle: function(e) {
 			// This is a mouse event response; find the actual widget code
@@ -164,12 +164,12 @@
 				// We're in the middle of a drag; update the slider to where the mouse is
 				var deltaX = e.clientX - w.options.mouseX;
 				var newOffset = w.options.dragStartOffset + deltaX;
-				if (newOffset > parseInt(w._onPos())) {
-					newOffset = parseInt(w._onPos());
-				} else if (newOffset < parseInt(w._offPos())) {
-					newOffset = parseInt(w._offPos());
+				if (newOffset > w._onPos()) {
+					newOffset = w._onPos();
+				} else if (newOffset < w._offPos()) {
+					newOffset = w._offPos();
 				}
-				w.sliderTrack.css('left', newOffset + 'px');
+				w.sliderTrack.css('left', newOffset);
 			}
 		})
 		.on("mouseup.slidetoggle", function(e) {
@@ -181,7 +181,7 @@
 					w.toggle();
 				} else {
 					// We're in the middle of a drag; end the drag, choosing on or off based on where the pin is
-					var offset = (parseInt(w.sliderTrack.css('left')) - parseInt(w._offPos()))/(parseInt(w._onPos())-parseInt(w._offPos()));
+					var offset = (parseInt(w.sliderTrack.css('left')) - w._offPos())/(w._onPos()-w._offPos());
 					if (offset >= 0.5) {
 						w.turnOn();
 					} else {
